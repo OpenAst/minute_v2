@@ -1,6 +1,6 @@
 from django.contrib import admin
 from django.urls import path, include
-
+from allauth.account.views import account_inactive
 from rest_framework_simplejwt.views import (
     TokenObtainPairView,
     TokenRefreshView,
@@ -25,6 +25,11 @@ urlpatterns = [
     # Social account specific urls
     path('auth/registration/account-confirm-email/', VerifyEmailView.as_view(), name='account_email_verification_sent'),
     path('auth/registration/account-confirm-email/<str:key>/', ConfirmEmailView.as_view(), name='confirm-email'),
+    
+    # allauth endpoints
+    path('account-inactive/', account_inactive, name='account_inactive'),
+    
+    path('accounts/', include('allauth.urls')),
     
     # Include app's URLS
     # path('', include('minute.urls')),

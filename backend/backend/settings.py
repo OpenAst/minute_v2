@@ -114,8 +114,7 @@ DJOSER = {
     'SOCIAL_AUTH_ALLOWED_REDIRECT_URIS': ['http://localhost:3000/social/callback'],
     'SERIALIZERS': {
         'user_create': 'minute.serializers.UserCreateSerializer',
-        'user': 'minute.serializers.UserCreateSerializer',
-        'current_user': 'minute.serializers.UserCreateSerializer',
+        'current_user': 'minute.serializers.CurrentUserSerializer',
         'user_delete': 'minute.serializers.UserDeleteSerializer',
     }
 }
@@ -151,8 +150,8 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': config('DB_NAME'),
-        'HOST': config('DB_HOST', default='localhost'),
-        'USER': config('DB_USER', default='admindjango'),
+        'HOST': config('DB_HOST'),
+        'USER': config('DB_USER'),
         'PASSWORD': config('DB_PASSWORD'),
     }
 }

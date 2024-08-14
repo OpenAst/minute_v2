@@ -12,6 +12,7 @@ djoser = "*"
 djangorestframework-simplejwt = "*"
 python-decouple = "*"
 mysqlclient = "*"
+channels = {extras = ["daphne"], version = "*"}
 
 [dev-packages]
 

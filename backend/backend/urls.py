@@ -6,7 +6,7 @@ from rest_framework_simplejwt.views import (
     TokenRefreshView,
 )
 from dj_rest_auth.registration.views import VerifyEmailView, ConfirmEmailView
-from .views import CustomRegisterView
+from minute.views import CustomRegisterView
 
 urlpatterns = [
     path('admin/', admin.site.urls),

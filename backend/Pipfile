@@ -4,15 +4,6 @@ verify_ssl = true
 name = "pypi"
 
 [packages]
-django = "*"
-djangorestframework = "*"
-django-allauth = "*"
-dj-rest-auth = "*"
-djoser = "*"
-djangorestframework-simplejwt = "*"
-python-decouple = "*"
-mysqlclient = "*"
-channels = {extras = ["daphne"], version = "*"}
 
 [dev-packages]
 

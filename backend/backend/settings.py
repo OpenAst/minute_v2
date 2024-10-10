@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'dj_rest_auth',
     'dj_rest_auth.registration',
     'rest_framework.authtoken',
+    'rest_framework_simplejwt',
     'minute',
     
 ]
@@ -166,11 +167,12 @@ ASGI_APPLICATION = 'backend.asgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.mysql',
+        'ENGINE': 'django.db.backends.postgresql',
         'NAME': config('DB_NAME'),
         'HOST': config('DB_HOST'),
         'USER': config('DB_USER'),
         'PASSWORD': config('DB_PASSWORD'),
+        'PORT': config('DB_PORT', default='5432'),
     }
 }
 

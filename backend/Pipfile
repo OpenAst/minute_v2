@@ -4,6 +4,15 @@ verify_ssl = true
 name = "pypi"
 
 [packages]
+dj-rest-auth = "*"
+djoser = "*"
+djangorestframework = "*"
+djangorestframework-simplejwt = "*"
+django-allauth = {extras = ["socialaccount"] }
+python-decouple = "*"
+psycopg2-binary = "*"
+django = "*"
+channels = {extras = ["daphne"], version = "*"}
 
 [dev-packages]
 

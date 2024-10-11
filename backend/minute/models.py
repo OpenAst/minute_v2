@@ -9,7 +9,6 @@ class CustomUser(AbstractBaseUser, PermissionsMixin):
   username = models.CharField(_("Username"), max_length=255, unique=True)
   first_name = models.CharField(_("First Name"), max_length=180)
   last_name = models.CharField(_("Last Name"), max_length=180, null=True, blank=True)
-  date_joined = models.DateTimeField(auto_now_add=True)
   last_login = models.DateTimeField(auto_now=True)
   is_active = models.BooleanField(default=False)
   is_staff = models.BooleanField(default=False)
@@ -26,3 +25,4 @@ class CustomUser(AbstractBaseUser, PermissionsMixin):
     
   def __str__(self):
     return self.email  
+

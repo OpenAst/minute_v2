@@ -1,5 +1,6 @@
 from django.shortcuts import render
 from rest_framework import status
+from allauth.account.utils import send_email_confirmation
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from dj_rest_auth.registration.serializers import RegisterSerializer
@@ -16,7 +17,15 @@ class CustomRegisterView(RegisterView):
         # Perform any custom actions here
         user = self.perform_create(serializer)
 
-        # send_email_confirmation(request, user) # Send the email verification
+        try:
+            send_email_confirmation(request, user) # Send the email verification
+        except Exception as e:
+            # If 
+            user.delete()
+            return Response(
+                {"detail": "User created, but email confirmation failed. User deleted."},
+                status=status.HTTP_400_BAD_REQUEST
+            )    
 
         headers = self.get_success_headers(serializer.data)
 

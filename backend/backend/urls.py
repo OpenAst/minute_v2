@@ -16,8 +16,8 @@ urlpatterns = [
     path('auth/registration/', CustomRegisterView.as_view(), name='custom_register'),
     
     # Email verification and confirmation views 
-    path('auth/registration/account-confirm-email/<str:key>/', ConfirmEmailView.as_view(), name='account-email_verification_sent'),
-    path('auth/registration/account-verify-email/', VerifyEmailView.as_view(), name='account_email_confirmation_sent'),
+    path('auth/registration/account-confirm-email/', VerifyEmailView.as_view(), name='account_email_confirmation_sent'),
+    path('auth/registration/account-confirm-email/<str:key>/', ConfirmEmailView.as_view(), name='confirm-email'),
 
     path('auth/password/reset/', include('dj_rest_auth.urls')),
     path('auth/password/reset/confirm/', include('dj_rest_auth.urls')),

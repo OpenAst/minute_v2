@@ -1,7 +1,7 @@
 from django.contrib import admin
 from django.urls import path, include
 from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView
-from minute.views import CustomRegisterView, verify_email
+from minute.views import CustomRegisterView, verify_email, change_password
 
 
 urlpatterns = [
@@ -13,7 +13,7 @@ urlpatterns = [
     # Custom views for auth
     path('auth/registration/', CustomRegisterView.as_view(), name='custom_register'),
     path('auth/verify/<uidb64>/<token>/', verify_email, name='verify-email'),
-
+    path('auth/change-password/', change_password, name='change_password'),
     # For social accounts
     path('accounts/', include('allauth.urls')),
     

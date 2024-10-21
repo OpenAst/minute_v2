@@ -38,6 +38,7 @@ INSTALLED_APPS = [
     'allauth.account',
     'allauth.socialaccount',
     'allauth.socialaccount.providers.google',
+    'allauth.socialaccount.providers.facebook',
     'dj_rest_auth',
     'dj_rest_auth.registration',
     'rest_framework.authtoken',
@@ -103,6 +104,15 @@ ACCOUNT_USERNAME_REQUIRED = False
 LOGIN_REDIRECT_URL = '/'
 LOGOUT_REDIRECT_URL = '/'
 
+
+SOCIALACCOUNT_PROVIDERS = {
+  'google': {
+    'APP': {
+      'client_id': 'GOOGLE_OAUTH2_KEY',
+      'secret': 'GOOGLE_OAUTH2_SECRET'
+    }
+  }
+}
 
 SIMPLE_JWT = {
     'AUTH_HEADER_TYPES': ('JWT',),

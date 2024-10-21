@@ -11,6 +11,8 @@ from django.utils.encoding import force_bytes
 from django.shortcuts import redirect
 from django.http import HttpResponse
 from django.contrib.auth import get_user_model
+from rest_framework.decorators import api_view
+from django.contrib.auth.models import User
 
 class CustomRegisterView(RegisterView):
     serializer_class = RegisterSerializer
@@ -59,4 +61,16 @@ def verify_email(request, uidb64, token):
         else:
              return HttpResponse('Email verification failed.')    
 
+@api_view(['POST'])
+def change_password(request):
+    user = request.user
+    old_password = request.data.get('oldPassword')
+    new_password = request.data.get('newPassword')
+
+    if not user.check_password(old_password):
+         return Response({"error": "Old password is incorrect"}, status=status.HTTP_400_BAD_REQUEST)
+    user.set_password(new_password)
+    user.save
+
+    return Response({'success': 'Password updated successfully'})
 

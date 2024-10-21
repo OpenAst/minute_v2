@@ -1,45 +1,37 @@
-import "./App.css";
 import { useState } from "react";
+import { BrowserRouter as Router, Routes, Route} from 'react-router-dom';
+import HomePage from './pages/HomePage';
+import RegisterPage from './pages/RegisterPage';
+import Dashboard from './pages/Dashboard';
+import ProtectedRoute from "./pages/ProtectedRoute";
+import { Provider } from 'react-redux';
+import store from './redux/store';
+import LoginPage from "./pages/LoginPage";
+import ResetPasswordPage from "./pages/ResetPasswordPage";
+import ResetPassword from "./pages/ResetPassword";
+
 
 const App = () => {
-
-  const [score, setScore] = useState("10");
-  const [comment, setComment] = useState("")
-
-  const handleSubmit = (e) => {
-    e.preventDefault()
-    if (Number(score) <= 5 && comment.length <= 10) {
-      alert("Please provide a comment explaining why the experience was poor.");
-      return;
-    }
-
-    console.log("Form submitted!.")
-    setComment("");
-    setScore("10");
-  }
-  
   return (
-    <div className="App">
-      <form onSubmit={handleSubmit}>
-        <fieldset>
-          <h2>Feedback Form</h2>
-          <div className="Field">
-            <label>Score : </label>
-            <input 
-            type="range" 
-            min="0" 
-            max="10" 
-            value={score} 
-            onChange={e => setScore(e.target.value)}/>
-          </div>
-          <div className="Field">
-            <label>Comment</label>
-            <textarea value={comment} onChange={e => setComment(e.target.value)} ></textarea>
-          </div>
-          <button type='submit'>Submit</button>
-        </fieldset>
-      </form>
-    </div>
-  );
+    <Provider store={store}>
+      <Router>
+        <Routes>
+          <Route path="/" exact element={<HomePage />} />
+          <Route path="/login" element={<LoginPage />} />
+          <Route path="/register" element={<RegisterPage />} />
+          <Route path="/reset-password" element={<ResetPasswordPage />} />
+          <Route path="/reset-password-change" element={<ResetPassword />} />
+          {/* Protected route */}
+          <Route 
+            path="/" 
+            element={<ProtectedRoute>
+              <Dashboard />
+            </ProtectedRoute>} />
+          
+        </Routes>
+      </Router>
+    </Provider>
+  )
 }
+
 export default App;

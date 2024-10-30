@@ -1,4 +1,3 @@
-import { useState } from "react";
 import { BrowserRouter as Router, Routes, Route} from 'react-router-dom';
 import HomePage from './pages/HomePage';
 import RegisterPage from './pages/RegisterPage';
@@ -9,7 +8,6 @@ import store from './redux/store';
 import LoginPage from "./pages/LoginPage";
 import ResetPasswordPage from "./pages/ResetPasswordPage";
 import ResetPassword from "./pages/ResetPassword";
-
 
 const App = () => {
   return (
@@ -23,10 +21,12 @@ const App = () => {
           <Route path="/reset-password-change" element={<ResetPassword />} />
           {/* Protected route */}
           <Route 
-            path="/" 
+            path="/dashboard" 
             element={<ProtectedRoute>
               <Dashboard />
-            </ProtectedRoute>} />
+            </ProtectedRoute>} 
+            
+          />
           
         </Routes>
       </Router>

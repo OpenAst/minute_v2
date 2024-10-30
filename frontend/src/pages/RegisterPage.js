@@ -2,7 +2,7 @@ import React from 'react';
 import { useState } from 'react';
 import { registerAction } from '../features/auth/registerAction';
 import { useDispatch } from 'react-redux';
-import { Button, Container, Form, FormGroup, Input } from 'reactstrap';
+import { Container, Form, FormGroup, Input } from 'reactstrap';
 import { Link, useNavigate } from 'react-router-dom';
 
 const RegisterPage = () => {
@@ -67,7 +67,7 @@ const RegisterPage = () => {
           type="submit">Register</button>
       </Form>
       <p className="text-center mt-4">
-        Already have an account? <Link to='/login'>Login</Link>
+        Already have an account? <Link className='bg-red-300 p-2 rounded hover:underline-red' to='/login'>Login</Link>
       </p>
     </Container>
     </div>

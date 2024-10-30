@@ -7,8 +7,8 @@ import { googleAction } from './googleAction';
 
 const initialState = {
     user: null,
-    token: null,
-    isAuthenticated: false,
+    key: localStorage.getItem('key') || null,
+    isAuthenticated: !!localStorage.getItem('key'),
     loading: false,
     error: null,
 };
@@ -19,14 +19,17 @@ const authSlice = createSlice({
     reducers: {
         // Synchronous reducers
         setAuth: (state, action) => {
-            state.user = action.payload;
-            state.token = action.payload.token;
+            state.user = action.payload.user;
+            state.token = action.payload.key;
             state.isAuthenticated = true;
+            localStorage.setItem('key', action.payload.key);
+           
         },
         resetAuth: (state) => {
             state.user = null;
             state.token = null;
             state.isAuthenticated = false;
+            localStorage.removeItem('key');
         },
 
     },
@@ -40,17 +43,23 @@ const authSlice = createSlice({
         .addCase(loginAction.fulfilled, (state, action) => {
             state.loading = false;
             state.user = action.payload.user;
-            state.token = action.payload.token;
+            state.key = action.payload.key;
             state.isAuthenticated = true;
+            localStorage.setItem('key', action.payload.key);
+
+            console.log("Retrieved key:", state.key);
         })
         .addCase(loginAction.rejected, (state, action) => {
             state.loading = false;
             state.error = action.error.message;
+
+            console.log("Key not retrieved", state.error)
         })
         .addCase(logoutAction.fulfilled, (state) => {
             state.user = null;
             state.token = null;
             state.isAuthenticated = false;
+            localStorage.removeItem('key');
         })
         .addCase(registerAction.fulfilled, (state, action) => {
             state.loading = true;

@@ -16,7 +16,7 @@ SECRET_KEY = 'django-insecure-dm5ji1&tj#&1(by=q#d2i2n*k6$s31@m%8zmb#k2u8d63r10n)
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ["localhost", "127.0.0.1"]
+ALLOWED_HOSTS = ["*"]
 
 
 # Application definition
@@ -34,6 +34,7 @@ INSTALLED_APPS = [
     
     'rest_framework',
     'djoser',
+    'corsheaders',
     'allauth',
     'allauth.account',
     'allauth.socialaccount',
@@ -50,6 +51,7 @@ INSTALLED_APPS = [
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
@@ -84,8 +86,8 @@ REST_FRAMEWORK = {
   ],
   'DEFAULT_AUTHENTICATION_CLASSES': (
     'rest_framework_simplejwt.authentication.JWTAuthentication',
+    'allauth.account.auth_backends.AuthenticationBackend',
     'rest_framework.authentication.TokenAuthentication',
-    'rest_framework.authentication.SessionAuthentication',
   ),  
 }
 

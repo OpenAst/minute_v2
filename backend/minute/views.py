@@ -12,7 +12,7 @@ from django.shortcuts import redirect
 from django.http import HttpResponse
 from django.contrib.auth import get_user_model
 from rest_framework.decorators import api_view
-from django.contrib.auth.models import User
+from .models import CustomUser
 
 class CustomRegisterView(RegisterView):
     serializer_class = RegisterSerializer

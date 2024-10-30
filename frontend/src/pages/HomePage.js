@@ -2,7 +2,10 @@ import React from 'react'
 import { Link } from 'react-router-dom';
 import { Button, Container } from 'reactstrap';
 
+
+
 const Homepage = () => {
+    
     return (
         <Container className="flex flex-col items-center justify-center h-screen text-center">
             <h1 className="text-4xl font-bold mb-4">Welcome to minute!</h1>

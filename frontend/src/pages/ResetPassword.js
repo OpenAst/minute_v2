@@ -20,7 +20,10 @@ const ResetPasswordPage = () => {
       }
       else {
         dispatch(changePasswordAction({oldPassword, newPassword}));
-        navigate('/login');
+        
+        setTimeout(() => {
+          navigate('/login');
+        })
       }
     } catch (error) {
 

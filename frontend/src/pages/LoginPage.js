@@ -19,7 +19,9 @@ const LoginPage = () => {
       if (result.error) {
         console.log(result.error.message);
       } else {
-        navigate('/');
+        setTimeout(() => {
+          navigate('/dashboard');
+        }, 3000);
       }
     } catch (error) {
       console.log(error.message);

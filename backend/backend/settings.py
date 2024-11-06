@@ -5,7 +5,7 @@ import os
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
-
+3
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/5.0/howto/deployment/checklist/
@@ -98,6 +98,7 @@ AUTHENTICATION_BACKENDS = (
 )
 
 SITE_ID = 1
+ACCOUNT_DEFAULT_HTTP_PROTOCOL = 'http'
 
 ACCOUNT_AUTHENTICATION_METHOD = 'email'
 ACCOUNT_EMAIL_REQUIRED = True
@@ -106,15 +107,6 @@ ACCOUNT_USERNAME_REQUIRED = False
 LOGIN_REDIRECT_URL = '/'
 LOGOUT_REDIRECT_URL = '/'
 
-
-SOCIALACCOUNT_PROVIDERS = {
-  'google': {
-    'APP': {
-      'client_id': 'GOOGLE_OAUTH2_KEY',
-      'secret': 'GOOGLE_OAUTH2_SECRET'
-    }
-  }
-}
 
 SIMPLE_JWT = {
     'AUTH_HEADER_TYPES': ('JWT',),
@@ -188,12 +180,12 @@ DATABASES = {
     }
 }
 
-EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_BACKEND = EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 EMAIL_HOST = config('EMAIL_HOST')
 EMAIL_PORT = config('EMAIL_PORT')
 EMAIL_HOST_USER =config('EMAIL_HOST_USER')
 EMAIL_HOST_PASSWORD = config('EMAIL_HOST_PASSWORD')
-EMAIL_USE_SSL = True
+EMAIL_USE_TLS = True
 DEFAULT_FROM_EMAIL = config('DEFAULT_FROM_EMAIL')
 
 

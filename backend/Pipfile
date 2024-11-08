@@ -12,8 +12,9 @@ django-allauth = {extras = ["socialaccount"] }
 python-decouple = "*"
 psycopg2-binary = "*"
 django = "*"
-channels = {extras = ["daphne"], version = "*"}
+channels = "*"
 django-cors-headers = "*"
+channels-redis = "*"
 
 [dev-packages]
 

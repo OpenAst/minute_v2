@@ -13,6 +13,7 @@ from django.http import HttpResponse
 from django.contrib.auth import get_user_model
 from rest_framework.decorators import api_view
 from .models import CustomUser
+from allauth.account.models import EmailAddress
 
 class CustomRegisterView(RegisterView):
     serializer_class = RegisterSerializer
@@ -57,6 +58,12 @@ def verify_email(request, uidb64, token):
         if user is not None and default_token_generator.check_token(user, token):
              user.is_active = True
              user.save()
+
+             # Mark the email as verified
+             email_address = EmailAddress.objects.get(user=user, email=user.email)
+             email_address.verified = True
+             email_address.save()
+             
              return HttpResponse('Email verification successful')
         else:
              return HttpResponse('Email verification failed.')    

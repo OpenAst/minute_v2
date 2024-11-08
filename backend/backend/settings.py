@@ -86,7 +86,6 @@ REST_FRAMEWORK = {
   ],
   'DEFAULT_AUTHENTICATION_CLASSES': (
     'rest_framework_simplejwt.authentication.JWTAuthentication',
-    'allauth.account.auth_backends.AuthenticationBackend',
     'rest_framework.authentication.TokenAuthentication',
   ),  
 }
@@ -94,7 +93,7 @@ REST_FRAMEWORK = {
 
 AUTHENTICATION_BACKENDS = (
     'allauth.account.auth_backends.AuthenticationBackend',
-    'django.contrib.auth.backends.ModelBackend'
+    'django.contrib.auth.backends.ModelBackend',
 )
 
 SITE_ID = 1
@@ -195,17 +194,23 @@ LOGGING = {
   'disable_existing_loggers': False,
   'handlers': {
     'console': {
-      'level': 'DEBUG',
+      'level': 'INFO',
       'class': 'logging.StreamHandler',
     },
+  },
+  'root': {
+      'handlers': ['console'],
+      'level': 'INFO',
   },
   'loggers': {
     'django': {
       'handlers': ['console'],
-      'level': 'DEBUG',
+      'level': 'INFO',
+      'propagate': False,
     },
   },
 }
+
 CORS_ALLOWED_ORIGINS = ["http://localhost:3000",]
 AUTH_USER_MODEL = 'minute.CustomUser'
 

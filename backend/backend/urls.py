@@ -2,7 +2,7 @@ from django.contrib import admin
 from django.urls import path, include
 from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView
 from minute.views import CustomRegisterView, verify_email, change_password
-
+from dj_rest_auth.views import LoginView
 
 urlpatterns = [
     path('admin/', admin.site.urls),

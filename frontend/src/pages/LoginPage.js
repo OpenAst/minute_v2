@@ -1,40 +1,41 @@
 import React from 'react';
 import { useState } from 'react';
-import { loginAction } from '../features/auth/loginAction';
-import { googleAction } from '../features/auth/googleAction';
-import { useDispatch } from 'react-redux';
+import { useGoogleLoginMutation, useLoginMutation } from '../api/apiAuth';
 import { Link, useNavigate } from 'react-router-dom';
 import { Container, Form, FormGroup, Input } from 'reactstrap';
 
 const LoginPage = () => {
+  const [login, {isLoading, isError }] = useLoginMutation();
+  const [googleLogin, {isLoading: isGoogleLoading, error: googleError }] = useGoogleLoginMutation();
+
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const result = dispatch(loginAction({ email, password }));
-      if (result.error) {
-        console.log(result.error.message);
-      } else {
-        setTimeout(() => {
-          navigate('/dashboard');
-        }, 3000);
-      }
+      const result = await login({ email, password }).unwrap();
+      console.log('Login successful:', result);
+      setTimeout(() => navigate('/dashboard'), 3000);
     } catch (error) {
       console.log(error.message);
     }
   };
 
-  const continueWithGoogle = () => {
+  const continueWithGoogle = async () => {
     const authUrl = `https://accounts.google.com/o/oauth2/auth?client_id=YOUR_GOOGLE_CLIENT_ID&redirect_uri=YOUR_REDIRECT_URI&response_type=token&scope=email%20profile`;
     window.location.href = authUrl;
 
     const token = new URLSearchParams(window.location.hash.substring(1)).get('access_token');
     if (token) {
-      dispatch(googleAction({ access_token: token }));
+      try {
+        await googleLogin({ token }).unwrap();
+        console.log('Google login successful');
+        navigate('/dashboard');
+      } catch (error) {
+        console.error('Error with Google login:', error);
+      }
     }
   };
 

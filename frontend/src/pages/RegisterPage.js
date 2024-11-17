@@ -1,31 +1,33 @@
 import React from 'react';
 import { useState } from 'react';
-import { registerAction } from '../features/auth/registerAction';
-import { useDispatch } from 'react-redux';
 import { Container, Form, FormGroup, Input } from 'reactstrap';
 import { Link, useNavigate } from 'react-router-dom';
+import { useRegisterMutation } from '../api/apiAuth';
 
 const RegisterPage = () => {
 
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
-  const dispatch = useDispatch();  
+  const [error, setError] = useState('');
   const navigate = useNavigate();
+  const [register, { isLoading }] = useRegisterMutation();
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     if (password !== confirmPassword) {
         alert("Passwords do not match!");
         return;
     }
     try {
-      dispatch(registerAction({ email, password}));
-      // Redirect to home after successful registration
-      navigate('/login');
+      const result = await register({ email, password}).unwrap();
+      if (result) {
+        // Redirect to home after successful registration
+        navigate('/login');
+      }
     }
     catch (error) {
-      return error.message;
+      setError(err?.data?.message || 'Registration failed. Please try again.');
     }  
   };
 
@@ -64,10 +66,12 @@ const RegisterPage = () => {
         <button
           className="w-full bg-blue-500 text-white p-2 rounded hover:bg-blue-600"
           color='primary'
-          type="submit">Register</button>
+          type="submit"
+          disabled={isLoading}
+          >R{isLoading ? 'Registering...' : 'Register'}</button>
       </Form>
       <p className="text-center mt-4">
-        Already have an account? <Link className='bg-red-300 p-2 rounded hover:underline-red' to='/login'>Login</Link>
+        Already have an account?{' '} <Link className='bg-red-300 p-2 rounded hover:underline-red' to='/login'>Login</Link>
       </p>
     </Container>
     </div>

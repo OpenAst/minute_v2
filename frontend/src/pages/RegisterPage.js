@@ -27,7 +27,7 @@ const RegisterPage = () => {
       }
     }
     catch (error) {
-      setError(err?.data?.message || 'Registration failed. Please try again.');
+      setError(error?.data?.message || 'Registration failed. Please try again.');
     }  
   };
 
@@ -68,7 +68,7 @@ const RegisterPage = () => {
           color='primary'
           type="submit"
           disabled={isLoading}
-          >R{isLoading ? 'Registering...' : 'Register'}</button>
+          >{isLoading ? 'Registering...' : 'Register'}</button>
       </Form>
       <p className="text-center mt-4">
         Already have an account?{' '} <Link className='bg-red-300 p-2 rounded hover:underline-red' to='/login'>Login</Link>
